@@ -1,13 +1,35 @@
-using System.Net.Http.Json;
+using Fizzler.Systems.HtmlAgilityPack;
+using HtmlAgilityPack;
+using Microsoft.AspNetCore.Mvc.Testing;
 
-namespace E_Blog.Test
+namespace E_Blog.Test;
+
+public class BlogControllerTest : IClassFixture<WebApplicationFactory<Program>>
 {
-    public class BlogControllerTest
+    private readonly WebApplicationFactory<Program> _factory;
+
+    public BlogControllerTest(WebApplicationFactory<Program> factory)
     {
-        [Fact]
-        public async void TestGetBlogApi()
-        {
-           
-        }
+        _factory = factory;
+    }
+
+    [Fact]
+    public async Task HelloWorld()
+    {
+        var client = _factory.CreateClient();
+
+        // QUAND on fait GET /
+        var response = await client.GetAsync("/");
+
+        // ALORS on obtient un Hello World dans le premier titre
+        //Assert.SelectorContains("Hello, World", "body>h1", html);
+
+        response.EnsureSuccessStatusCode();
+        var content = await response.Content.ReadAsStreamAsync();
+        var html = new HtmlDocument();
+        html.Load(content);
+
+        var h1 = html.DocumentNode.QuerySelector("body>h1");
+        Assert.Contains("Hello, World", h1.InnerText);
     }
 }

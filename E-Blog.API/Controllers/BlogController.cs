@@ -6,11 +6,10 @@ namespace E_Blog.API.Controllers
     [ApiController]
     public class BlogController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult GetHelloWorld()
+        [HttpGet("/")]
+        public IActionResult Get()
         {
-            string htmlContent = "<h1>Hello world!</h1>";
-            return Content(htmlContent, "text/html");
+            return Content("<html><body><h1>Hello, World</h1></body></html>", "text/html");
         }
     }
 }
