@@ -6,7 +6,7 @@ namespace E_Blog.API.Controllers
     [ApiController]
     public class BlogController : ControllerBase
     {
-        [HttpGet(Name = "hello-world")]
+        [HttpGet]
         public IActionResult GetHelloWorld()
         {
             string htmlContent = "<h1>Hello world!</h1>";
