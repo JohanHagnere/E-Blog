@@ -2,7 +2,7 @@
 
 namespace E_Blog.API.Services
 {
-    public class BlogService
+    public class BlogService : IBlogService
     {
         private readonly List<Article> _articles = new()
         {
@@ -15,8 +15,30 @@ namespace E_Blog.API.Services
             {
                 Id = 2,
                 Content = "Ceci est le deuxième article."
+            },
+              new Article
+            {
+                Id = 3,
+                Content = "Ceci est le troisième article."
+            },
+                new Article
+            {
+                Id = 4,
+                Content = "J'aime jouer à Candry Crush.",
+                Author = "Nicolas"
+            },
+                  new Article
+            {
+                Id = 5,
+                Content = "Ceci est le deuxième article car je ne sais pas compter.",
+                Author = "Tommy"
             }
         };
+
+        public List<Article> GetAllArticles()
+        {
+            return _articles;
+        }
 
         public Article GetArticleById(int id)
         {
